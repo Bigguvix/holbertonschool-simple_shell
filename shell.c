@@ -1,11 +1,12 @@
 #include "shell.h"
 
-int main(void)
+int main(int argc, char **argv)
 {
-	char *argv[] = {NULL};
+	char *args[] = {NULL};
 	char *line = malloc(120);
 	unsigned long int i = 120;
 	int status;
+	(void)argc;
 
 	strcpy(line, "");
 
@@ -16,7 +17,7 @@ int main(void)
 		{
 			free(line);
 			printf("\n");
-			exit(0);
+			exit(EXIT_SUCCESS);
 		}
 
 		if (fork())
@@ -33,12 +34,13 @@ int main(void)
 			*p = '\0';
 			}
 
-			if (execve(line, argv, NULL) == -1)
+			if (execve(line, args, NULL) == -1)
 			{
-			printf("bash: No Program\n");
+			fprintf(stderr,
+				"%s: No such file or directory\n", argv[0]);
 			}
 
-			exit(EXIT_SUCCESS);
+			exit(EXIT_FAILURE);
 		}
 	}
 }
