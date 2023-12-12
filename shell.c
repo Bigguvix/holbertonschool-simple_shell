@@ -37,11 +37,12 @@ int main(int argc, char **argv)
 			if (p != NULL)
 				*p = '\0';
 
-			if (execve(line, args, NULL) == -1)
+			if (execve(strtok(line, " "), args, NULL) == -1)
 			{
-				fprintf(stderr,
-				"%s: No such file or directory\n", argv[0]);
+				fprintf(stderr, "%s: No such file or directory\n", argv[0]);
 			}
+
+			free(line);
 			exit(EXIT_FAILURE);
 		}
 	}
