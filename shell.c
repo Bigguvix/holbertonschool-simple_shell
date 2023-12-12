@@ -8,11 +8,10 @@
  */
 int main(int argc, char **argv)
 {
-	char *args[] = {NULL};
+	char **args;
 	char *line = malloc(120);
 	unsigned long int i = 120;
 	int status;
-	char *p;
 
 	(void)argc;
 
@@ -27,22 +26,14 @@ int main(int argc, char **argv)
 			printf("\n");
 			exit(EXIT_SUCCESS);
 		}
-		if (fork())
-		{
-			wait(&status);
-		}
-		else
-		{
-			p = strchr(line, '\n');
-			if (p != NULL)
-				*p = '\0';
+		
+		args = malloc(sizeof(char *) * 20);
 
-			if (execve(strtok(line, " "), args, NULL) == -1)
-			{
-				fprintf(stderr, "%s: No such file or directory\n", argv[0]);
-			}
-
+		args = tokenize(line, args);
+		if (exec(args[0], args, NULL, &status, argv[0]))
+		{
 			free(line);
+			free(args);
 			exit(EXIT_FAILURE);
 		}
 	}
