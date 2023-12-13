@@ -47,6 +47,5 @@ int main(int argc, char **argv, char **envp)
 			free(path);
 			exit(EXIT_FAILURE);
 		}
-		fflush(stdin);
 	}
 }
