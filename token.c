@@ -1,20 +1,20 @@
 #include "shell.h"
-#define TOK_SEPARATOR " \n\t"
 
 /**
  * tokenize - takes a string and separates it
  * @str: the string
  * @tok: the token list buffer
  * @buffSize: the size of the list
+ * @separator: separator string
  *
  * Return: the token list
  */
-char **tokenize(char *str, char **tok, int *buffSize)
+char **tokenize(char *str, char **tok, int *buffSize, char *separator)
 {
 	int  i = 1;
 
-	tok[0] = strtok(str, TOK_SEPARATOR);
-	while ((tok[i] = strtok(NULL, TOK_SEPARATOR)))
+	tok[0] = strtok(str, separator);
+	while ((tok[i] = strtok(NULL, separator)))
 	{
 		i++;
 		if (i == *buffSize)

@@ -9,7 +9,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-int exec(char *str, char * arg[], char * env[], int *status, char *name);
-char **tokenize(char *, char **, int *);
+int exec(char *arg[], char * env[], int *status, char *name, char **paths);
+char **tokenize(char *, char **, int *, char *);
 
 #endif
