@@ -10,6 +10,6 @@
 #include <sys/wait.h>
 
 int exec(char *str, char * arg[], char * env[], int *status, char *name);
-char **tokenize(char *, char **);
+char **tokenize(char *, char **, int *);
 
 #endif
