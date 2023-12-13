@@ -28,7 +28,8 @@ int main(int argc, char **argv, char **envp)
 
 	while (1)
 	{
-		printf("$ ");
+		if (isatty(STDIN_FILENO))
+			printf("$ ");
 		if (getline(&line, &i, stdin) == -1)
 		{
 			free(line);
@@ -46,5 +47,6 @@ int main(int argc, char **argv, char **envp)
 			free(path);
 			exit(EXIT_FAILURE);
 		}
+		fflush(stdin);
 	}
 }
