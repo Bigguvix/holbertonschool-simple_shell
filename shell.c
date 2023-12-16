@@ -25,7 +25,7 @@ void shexit(char *line, char **args, char **path, int code)
 int main(int argc, char **argv)
 {
 	char **args, **path;
-	char *line;
+	char *line = NULL;
 	unsigned long int i;
 	int status, argsSize = 16, pathSize = 16;
 
