@@ -9,7 +9,10 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-int exec(char *arg[], char * env[], int *status, char *name, char **paths);
-char **tokenize(char *, char **, int *, char *);
+extern char **environ;
+
+int exec(char *arg[], int *status, char *name, char **paths);
+char **tokenize(char *str, char **tok, int *buffSize, char *separator);
+int forkRun(char *arg[], int *status, char *name, char *buf);
 
 #endif

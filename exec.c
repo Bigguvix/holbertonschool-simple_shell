@@ -1,4 +1,5 @@
 #include "shell.h"
+
 /**
  * exec - Executes a program.
  * @arg: arguments
@@ -9,7 +10,7 @@
  *
  * Return: Succes.
  */
-int exec(char *arg[], char *env[], int *status, char *name, char **paths)
+int exec(char *arg[], int *status, char *name, char **paths)
 {
 	char buf[120];
 
@@ -24,27 +25,49 @@ int exec(char *arg[], char *env[], int *status, char *name, char **paths)
 				break;
 			paths++;
 		}
-	if (paths == NULL)
+	if (*paths == NULL)
 	{
-		fprintf(stderr, "%s: No such file or directory\n", name);
-		return (1);
-	}
-
-
-	if (fork())
-	{
-		wait(status);
-	}
-
-	else
-	{
-		if (execve(buf, arg, env) == -1)
+		if (buf[0] == '/')
 		{
-			fprintf(stderr, "%s: No such file or directory\n", name);
+			fprintf(stderr,
+				"%s: %s: command not found\n",
+				name, arg[0]);
 		}
-
-		return (1);
+		else
+		{
+			fprintf(stderr,
+				"%s: %s: No such file or directory\n",
+				name, arg[0]);
+		}
+		return (0);
 	}
+	return (forkRun(arg, status, name, buf));
+}
 
+/**
+ * forRun - forks and runs program
+ * arg: arguments
+ * status: return status
+ * name: shell name
+ * buf: file to execute
+ * Return: success
+ */
+int forkRun(char *arg[], int *status, char *name, char *buf)
+{
+	switch (fork())
+	{
+		case -1:
+			break;
+		case 0:
+			if (execve(buf, arg, environ) == -1)
+			{
+				fprintf(stderr,
+					"%s: %s: No such file or directory\n",
+					name, arg[0]);
+			}
+			return (1);
+		default:
+			wait(status);
+	}
 	return (0);
 }
