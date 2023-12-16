@@ -14,14 +14,15 @@ char **tokenize(char *str, char **tok, int *buffSize, char *separator)
 	int  i = 1;
 
 	tok[0] = strtok(str, separator);
-	while ((tok[i] = strtok(NULL, separator)))
-	{
-		i++;
-		if (i == *buffSize)
+	if (tok[0])
+		while ((tok[i] = strtok(NULL, separator)))
 		{
-			*buffSize += 16;
-			tok = realloc(tok, sizeof(char *) * (*buffSize));
+			i++;
+			if (i == *buffSize)
+			{
+				*buffSize += 16;
+				tok = realloc(tok, sizeof(int *) * (*buffSize));
+			}
 		}
-	}
 	return (tok);
 }
