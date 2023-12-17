@@ -34,7 +34,7 @@ void shexit(char *line, char **args, char **path, int code)
  */
 int main(int argc, char **argv)
 {
-	char **args, **path;
+	char **args, **path, *tmp, *tmp2;
 	char *line = NULL;
 	unsigned long int i;
 	int status, argsSize = 16, pathSize = 16;
@@ -43,7 +43,14 @@ int main(int argc, char **argv)
 	path = malloc(sizeof(char *) * pathSize);
 	if (!path || !args)
 		exit(1);
-	tokenize(strdup(getenv("PATH")), path, &pathSize, ":");
+
+	tmp2 = getenv("PATH");
+	if (!tmp)
+		tmp = strdup("");
+	else
+		tmp = strdup(tmp2);
+		
+	tokenize(tmp, path, &pathSize, ":");
 
 	(void)argc;
 
