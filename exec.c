@@ -12,7 +12,7 @@
  */
 int exec(char *arg[], int *status, char *name, char **paths)
 {
-	char buf[120];
+	char buf[320];
 
 	strcpy(buf, arg[0]);
 	if (access(buf, F_OK) != 0)
@@ -28,7 +28,7 @@ int exec(char *arg[], int *status, char *name, char **paths)
 		}
 		if (*paths == NULL)
 		{
-			if (buf[0] == '/')
+			if (buf[0] != '/')
 			{
 				fprintf(stderr,
 					"%s: %s: not found\n",
