@@ -3,7 +3,6 @@
 /**
  * exec - Executes a program.
  * @arg: arguments
- * @env: enviroment
  * @status: return status
  * @name: shell name
  * @paths: PATH variable in list form
@@ -47,11 +46,11 @@ int exec(char *arg[], int *status, char *name, char **paths)
 }
 
 /**
- * forRun - forks and runs program
- * arg: arguments
- * status: return status
- * name: shell name
- * buf: file to execute
+ * forkRun - forks and runs program
+ * @arg: arguments
+ * @status: return status
+ * @name: shell name
+ * @buf: file to execute
  * Return: success
  */
 int forkRun(char *arg[], int *status, char *name, char *buf)

@@ -3,7 +3,7 @@
 /**
  * prenv - prints env vars
  */
-void prenv()
+void prenv(void)
 {
 	char **env = environ;
 
@@ -44,7 +44,6 @@ int main(int argc, char **argv)
 	path = malloc(sizeof(char *) * pathSize);
 	if (!path || !args)
 		exit(1);
-
 	tmp2 = getenv("PATH");
 	if (!tmp2)
 		*path = NULL;
@@ -53,10 +52,7 @@ int main(int argc, char **argv)
 		tmp = strdup(tmp2);
 		tokenize(tmp, path, &pathSize, ":");
 	}
-
 	(void)argc;
-
-
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
