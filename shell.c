@@ -22,7 +22,8 @@ void shexit(char *line, char **args, char **path, int code)
 {
 	free(line);
 	free(args);
-	free(*path);
+	if (*path)
+		free(*path);
 	free(path);
 	exit(code);
 }
@@ -46,11 +47,12 @@ int main(int argc, char **argv)
 
 	tmp2 = getenv("PATH");
 	if (!tmp2)
-		tmp = strdup("");
+		*path = NULL;
 	else
+	{
 		tmp = strdup(tmp2);
-		
-	tokenize(tmp, path, &pathSize, ":");
+		tokenize(tmp, path, &pathSize, ":");
+	}
 
 	(void)argc;
 
