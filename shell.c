@@ -2,10 +2,11 @@
 
 /**
  * prenv - prints env vars
- * env: env vars
  */
-void prenv(char **env)
+void prenv()
 {
+	char **env = environ;
+
 	for (; *env; env++)
 		printf("%s\n", *env);
 }
@@ -21,6 +22,7 @@ void shexit(char *line, char **args, char **path, int code)
 {
 	free(line);
 	free(args);
+	free(*path);
 	free(path);
 	exit(code);
 }
@@ -41,7 +43,7 @@ int main(int argc, char **argv)
 	path = malloc(sizeof(char *) * pathSize);
 	if (!path || !args)
 		exit(1);
-	tokenize(getenv("PATH"), path, &pathSize, ":");
+	tokenize(strdup(getenv("PATH")), path, &pathSize, ":");
 
 	(void)argc;
 
@@ -61,7 +63,7 @@ int main(int argc, char **argv)
 			shexit(line, args, path, EXIT_SUCCESS);
 		if (strcmp(args[0], "env") == 0)
 		{
-			prenv(environ);
+			prenv();
 			continue;
 		}
 		if (exec(args, &status, argv[0], path))
