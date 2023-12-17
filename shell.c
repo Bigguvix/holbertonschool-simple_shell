@@ -45,7 +45,7 @@ int main(int argc, char **argv)
 		exit(1);
 
 	tmp2 = getenv("PATH");
-	if (!tmp)
+	if (!tmp2)
 		tmp = strdup("");
 	else
 		tmp = strdup(tmp2);
