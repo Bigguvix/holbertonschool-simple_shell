@@ -30,7 +30,7 @@ int exec(char *arg[], int *status, char *name, char **paths)
 		if (buf[0] == '/')
 		{
 			fprintf(stderr,
-				"%s: %s: command not found\n",
+				"%s: %s: not found\n",
 				name, arg[0]);
 		}
 		else

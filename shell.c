@@ -1,6 +1,14 @@
 #include "shell.h"
 
-
+/**
+ * prenv - prints env vars
+ * env: env vars
+ */
+void prenv(char **env)
+{
+	for (; *env; env++)
+		printf("%s\n", *env);
+}
 
 /**
  * shexit - exits terminal
@@ -45,12 +53,17 @@ int main(int argc, char **argv)
 
 		if (getline(&line, &i, stdin) == -1)
 			shexit(line, args, path, EXIT_SUCCESS);
-		if (strcmp(line, "exit\n") == 0)
-			shexit(line, args, path, EXIT_SUCCESS);
-		if (strlen(line) == 1)
-			continue;
 
 		args = tokenize(line, args, &argsSize, " \n\t");
+		if (args[0] == NULL)
+			continue;
+		if (strcmp(args[0], "exit") == 0)
+			shexit(line, args, path, EXIT_SUCCESS);
+		if (strcmp(args[0], "env") == 0)
+		{
+			prenv(environ);
+			continue;
+		}
 		if (exec(args, &status, argv[0], path))
 			shexit(line, args, path, EXIT_FAILURE);
 	}

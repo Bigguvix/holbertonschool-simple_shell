@@ -12,6 +12,10 @@
 char **tokenize(char *str, char **tok, int *buffSize, char *separator)
 {
 	int  i = 1;
+	char *empty = "";
+
+	if (!str)
+		str = empty;
 
 	tok[0] = strtok(str, separator);
 	if (tok[0])
