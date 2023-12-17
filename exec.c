@@ -16,6 +16,7 @@ int exec(char *arg[], int *status, char *name, char **paths)
 
 	strcpy(buf, arg[0]);
 	if (access(buf, F_OK) != 0)
+	{
 		while (*paths != NULL)
 		{
 			strcpy(buf, *paths);
@@ -25,21 +26,22 @@ int exec(char *arg[], int *status, char *name, char **paths)
 				break;
 			paths++;
 		}
-	if (*paths == NULL)
-	{
-		if (buf[0] == '/')
+		if (*paths == NULL)
 		{
-			fprintf(stderr,
-				"%s: %s: not found\n",
-				name, arg[0]);
+			if (buf[0] == '/')
+			{
+				fprintf(stderr,
+					"%s: %s: not found\n",
+					name, arg[0]);
+			}
+			else
+			{
+				fprintf(stderr,
+					"%s: %s: No such file or directory\n",
+					name, arg[0]);
+			}
+			return (0);
 		}
-		else
-		{
-			fprintf(stderr,
-				"%s: %s: No such file or directory\n",
-				name, arg[0]);
-		}
-		return (0);
 	}
 	return (forkRun(arg, status, name, buf));
 }
